@@ -21,7 +21,6 @@ public class GoldMainTeleOP extends OpMode {
         backRight = hardwareMap.get(DcMotor.class, "backright");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
     public void loop() {

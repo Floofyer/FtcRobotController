@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "Tele")
+//@TeleOp(name = "Tele")
 public class GoldTicksTest extends OpMode {
     DcMotor frontLeft;
     DcMotor frontRight;
@@ -20,8 +20,6 @@ public class GoldTicksTest extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
         backRight = hardwareMap.get(DcMotor.class, "backright");
 
-        frontRight.setDirection(DcMotor.Direction.REVERSE);
-        backRight.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
     public void loop() {
@@ -56,7 +54,7 @@ public class GoldTicksTest extends OpMode {
         telemetry.addData("back left power = ", backLeft.getPower());
         telemetry.addData("back left power = ", backRight.getPower());
         telemetry.addData("drive power = ", DrivePower);
-        telemetry.addData()
+//        telemetry.addData()
         telemetry.update();
     }
 }

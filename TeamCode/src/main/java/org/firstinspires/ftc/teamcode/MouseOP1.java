@@ -10,11 +10,8 @@ public class MouseOP1 extends LinearOpMode {
         MouseMain mouse = new MouseMain(hardwareMap);
 
         waitForStart();
-        mouse.forward(0.5);
-        sleep(100);
-        mouse.right(0.65);
-        sleep(450);
-        mouse.forward(0.69);
-        sleep(500);
+        mouse.forward(12, 0.69);
+        mouse.right(12, 0.69);
+        mouse.forward(12, 0.69);
     }
 }
