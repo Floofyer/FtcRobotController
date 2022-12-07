@@ -31,7 +31,6 @@ public class GoldMainTeleOP extends OpMode {
         double y = -gamepad1.right_stick_x;
         double r = gamepad1.left_stick_y;
 
-
         double frontLeftPower = (y + r - x);
         double frontRightPower = (y - r - x);
         double backLeftPower = (y + r + x);

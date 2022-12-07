@@ -11,7 +11,8 @@ public class MouseMain {
     DcMotorEx frontRight;
     DcMotorEx backLeft;
     DcMotorEx backRight;
-
+    DcMotorEx slideL;
+    DcMotorEx slideR;
     Servo claw;
 
     HardwareMap hardwareMap;
@@ -30,7 +31,8 @@ public class MouseMain {
         backLeft = this.hardwareMap.get(DcMotorEx.class, "backleft");
         backRight = this.hardwareMap.get(DcMotorEx.class, "backright");
         claw = this.hardwareMap.get(Servo.class, "claw");
-
+        slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
     public int inchesToTicks(double inches) {
@@ -45,9 +47,19 @@ public class MouseMain {
     public void right(int inches, double power) {
         driveInches(inches, power, "right");
     }
-    public void left(int inches, double power) {
-        driveInches(inches, power, "left");
+    public void left(int inches, double power) {driveInches(inches, power, "left");}
+    public void goToSlidePosition(int ticks, double power) {
+        slideL.setTargetPosition(slideL.getCurrentPosition()+ticks);
+        slideR.setTargetPosition(slideR.getCurrentPosition()+ticks);
+        slideL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        slideL.setPower(power);
+        slideR.setPower(power);
+        while (slideL.isBusy() && slideR.isBusy());
+        slideR.setPower(0);
+        slideL.setPower(0);
     }
+
     public void goToTickPosition(int ticks, double power, String direction) {
 
 //        frontLeft.setMo/de(DcMotor.RunMode.STOP_AND_RESET_ENCODER);/
@@ -90,6 +102,7 @@ public class MouseMain {
         backLeft.setPower(0);
         backRight.setPower(0);
         frontRight.setPower(0);
+
     }
     public void driveInches(int inches,double power, String direction) {
         goToTickPosition(inchesToTicks(inches), power, direction);
@@ -101,5 +114,5 @@ public class MouseMain {
     public void closeClaw () {
         claw.setPosition(0);
     }
-    public void upSlide () {}
+    public void pUp () {}
 }
