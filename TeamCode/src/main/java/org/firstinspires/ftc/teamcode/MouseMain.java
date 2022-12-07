@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
+import com.sun.tools.javac.tree.DCTree;
 
 public class MouseMain {
     DcMotorEx frontLeft;
@@ -10,12 +12,15 @@ public class MouseMain {
     DcMotorEx backLeft;
     DcMotorEx backRight;
 
+    Servo claw;
+
     HardwareMap hardwareMap;
 
     final double TICKS_PER_ROTATION = 537.7;
     final double WHEEL_DIAMETER = 3.85827;
     final double TICKS_PER_INCH = TICKS_PER_ROTATION / (WHEEL_DIAMETER * Math.PI);
 
+//last resort is preset
     // all of the hardware stored on this object/class
     public MouseMain(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
@@ -24,6 +29,7 @@ public class MouseMain {
         frontRight = this.hardwareMap.get(DcMotorEx.class, "frontright");
         backLeft = this.hardwareMap.get(DcMotorEx.class, "backleft");
         backRight = this.hardwareMap.get(DcMotorEx.class, "backright");
+        claw = this.hardwareMap.get(Servo.class, "claw");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
@@ -43,6 +49,7 @@ public class MouseMain {
         driveInches(inches, power, "left");
     }
     public void goToTickPosition(int ticks, double power, String direction) {
+
 //        frontLeft.setMo/de(DcMotor.RunMode.STOP_AND_RESET_ENCODER);/
 
         if (direction.equals("forward")) {
@@ -87,4 +94,12 @@ public class MouseMain {
     public void driveInches(int inches,double power, String direction) {
         goToTickPosition(inchesToTicks(inches), power, direction);
     }
+
+    public void openClaw () {
+        claw.setPosition(0.1);
+    }
+    public void closeClaw () {
+        claw.setPosition(0);
+    }
+    public void upSlide () {}
 }

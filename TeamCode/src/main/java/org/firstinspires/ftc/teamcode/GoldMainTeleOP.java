@@ -3,13 +3,15 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Tele")
+@TeleOp(name = "Tele - amaris was here")
 public class GoldMainTeleOP extends OpMode {
     DcMotor frontLeft;
     DcMotor frontRight;
     DcMotor backLeft;
     DcMotor backRight;
+    Servo claw;
 
     double DrivePower = 0.5;
 
@@ -19,6 +21,7 @@ public class GoldMainTeleOP extends OpMode {
         frontRight = hardwareMap.get(DcMotor.class, "frontright");
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
         backRight = hardwareMap.get(DcMotor.class, "backright");
+        claw = hardwareMap.get(Servo.class, "claw");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
@@ -27,6 +30,7 @@ public class GoldMainTeleOP extends OpMode {
         double x = gamepad1.left_stick_x;
         double y = -gamepad1.right_stick_x;
         double r = gamepad1.left_stick_y;
+
 
         double frontLeftPower = (y + r - x);
         double frontRightPower = (y - r - x);
@@ -38,6 +42,12 @@ public class GoldMainTeleOP extends OpMode {
         }
         if (gamepad1.left_trigger == 1) {
             DrivePower = Math.max(DrivePower - 0.05, 0.1);
+        }
+        if (gamepad2.x) {
+            claw.setPosition(0.1);//open
+        }
+        if (gamepad2.y) {
+            claw.setPosition(0);//close
         }
 
         frontLeftPower *= DrivePower;
