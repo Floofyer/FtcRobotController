@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "Tele - amaris was here")
@@ -12,6 +13,8 @@ public class GoldMainTeleOP extends OpMode {
     DcMotor backLeft;
     DcMotor backRight;
     Servo claw;
+    DcMotorEx slideL;
+    DcMotorEx slideR;
 
     double DrivePower = 0.5;
 
@@ -22,6 +25,8 @@ public class GoldMainTeleOP extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
         backRight = hardwareMap.get(DcMotor.class, "backright");
         claw = hardwareMap.get(Servo.class, "claw");
+        slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");
 
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
