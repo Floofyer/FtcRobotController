@@ -16,6 +16,18 @@ public class TrestTOp extends OpMode {
         telemetry.addData("slide Left Ticks" , mouse.slideL.getCurrentPosition());
         telemetry.addData("slide Right Ticks" , mouse.slideR.getCurrentPosition());
         telemetry.update();
+
+        if (gamepad2.left_stick_y > 0) {
+            mouse.slideL.setPower(0.1);
+            mouse.slideR.setPower(0.1);
+        }
+        else if (gamepad2.left_stick_y < 0){
+            mouse.slideL.setPower(-0.1);
+            mouse.slideR.setPower(-0.1);
+        }
+        else {
+            mouse.slideL.setPower(0);
+            mouse.slideR.setPower(0);
+        }
     }
 }
-
