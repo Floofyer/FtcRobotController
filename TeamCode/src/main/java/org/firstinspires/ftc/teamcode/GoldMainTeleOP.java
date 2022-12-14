@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@TeleOp(name = "Tele - amaris was here")
+@TeleOp(name = "Tele")
 public class GoldMainTeleOP extends OpMode {
     DcMotor frontLeft;
     DcMotor frontRight;
@@ -28,6 +28,11 @@ public class GoldMainTeleOP extends OpMode {
         slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
         slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");
 
+        telemetry.addData("Status", "Running");
+        telemetry.update();
+
+        claw.scaleRange(0,1);
+
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override
@@ -48,7 +53,7 @@ public class GoldMainTeleOP extends OpMode {
             DrivePower = Math.max(DrivePower - 0.05, 0.1);
         }
         if (gamepad2.x) {
-            claw.setPosition(0.1);//open
+            claw.setPosition(1);//open
         }
         if (gamepad2.y) {
             claw.setPosition(0);//close

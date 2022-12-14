@@ -14,6 +14,8 @@ public class MouseMain {
     DcMotorEx slideL;
     DcMotorEx slideR;
     Servo claw;
+    Servo foreBarLeft;
+    Servo foreBarRight;
 
     HardwareMap hardwareMap;
 
@@ -32,7 +34,9 @@ public class MouseMain {
         backRight = this.hardwareMap.get(DcMotorEx.class, "backright");
         claw = this.hardwareMap.get(Servo.class, "claw");
         slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
-        slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");
+        slideR = this.hardwareMap.get(DcMotorEx.class, "slideR");
+        foreBarLeft = this.hardwareMap.get(Servo.class, "forebarleft");
+        foreBarRight = this.hardwareMap.get(Servo.class, "forebarright");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
     public int inchesToTicks(double inches) {
@@ -66,24 +70,24 @@ public class MouseMain {
 
         if (direction.equals("forward")) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
+            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
+            backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
         } else if (direction.equals("backward")) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
-        } else if (direction.equals("right")) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
-        } else if (direction.equals("left")) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
+        } else if (direction.equals("right")) {
+            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
+            frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
+            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
+            backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
+        } else if (direction.equals("left")) {
+            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
+            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
+            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
+            backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
         }
 
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
