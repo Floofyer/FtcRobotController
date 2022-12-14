@@ -13,8 +13,8 @@ public class GoldMainTeleOP extends OpMode {
     DcMotor backLeft;
     DcMotor backRight;
     Servo claw;
-    DcMotorEx slideL;
-    DcMotorEx slideR;
+    /*DcMotorEx slideL;
+    DcMotorEx slideR;*/
 
     double DrivePower = 0.5;
 
@@ -25,14 +25,10 @@ public class GoldMainTeleOP extends OpMode {
         backLeft = hardwareMap.get(DcMotor.class, "backleft");
         backRight = hardwareMap.get(DcMotor.class, "backright");
         claw = hardwareMap.get(Servo.class, "claw");
-        slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
-        slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");
-
+        /*slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR= this.hardwareMap.get(DcMotorEx.class, "slideR");*/
         telemetry.addData("Status", "Running");
         telemetry.update();
-
-        claw.scaleRange(0,1);
-
         frontRight.setDirection(DcMotor.Direction.REVERSE);
     }
     @Override

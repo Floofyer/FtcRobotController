@@ -8,12 +8,12 @@ public class TrestTOp extends OpMode {
     MouseMain mouse;
     @Override
     public void init() {
-        MouseMain mouse = new MouseMain(hardwareMap);
+        mouse = new MouseMain(hardwareMap);
     }
 
     @Override
     public void loop() {
-        telemetry.addData("slide Left Ticks" , mouse.slideL.getCurrentPosition());
+        /*telemetry.addData("slide Left Ticks" , mouse.slideL.getCurrentPosition());
         telemetry.addData("slide Right Ticks" , mouse.slideR.getCurrentPosition());
         telemetry.addData("LinearSlideL Power", mouse.slideL.getPower());
         telemetry.addData("LinearSlideR Power", mouse.slideR.getPower());
@@ -31,6 +31,12 @@ public class TrestTOp extends OpMode {
         else {
             mouse.slideL.setPower(0);
             mouse.slideR.setPower(0);
+        }*/
+        if (gamepad2.right_stick_y > 0) {
+            mouse.moveFourBar(0.1);
+        }
+        else if (gamepad2.right_stick_y < 0) {
+            mouse.moveFourBar(0);
         }
     }
 }

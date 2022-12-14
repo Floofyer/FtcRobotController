@@ -11,11 +11,11 @@ public class MouseMain {
     DcMotorEx frontRight;
     DcMotorEx backLeft;
     DcMotorEx backRight;
-    DcMotorEx slideL;
-    DcMotorEx slideR;
+    /*DcMotorEx slideL;
+    DcMotorEx slideR;*/
     Servo claw;
-    Servo foreBarLeft;
-    Servo foreBarRight;
+    Servo fourBarLeft;
+    Servo fourBarRight;
 
     HardwareMap hardwareMap;
 
@@ -33,11 +33,12 @@ public class MouseMain {
         backLeft = this.hardwareMap.get(DcMotorEx.class, "backleft");
         backRight = this.hardwareMap.get(DcMotorEx.class, "backright");
         claw = this.hardwareMap.get(Servo.class, "claw");
-        slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
-        slideR = this.hardwareMap.get(DcMotorEx.class, "slideR");
-        foreBarLeft = this.hardwareMap.get(Servo.class, "forebarleft");
-        foreBarRight = this.hardwareMap.get(Servo.class, "forebarright");
+        /*slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
+        slideR = this.hardwareMap.get(DcMotorEx.class, "slideR");*/
+        fourBarLeft = this.hardwareMap.get(Servo.class, "fourbarleft");
+        fourBarRight = this.hardwareMap.get(Servo.class, "fourbarright");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
+        fourBarRight.setDirection(Servo.Direction.REVERSE);
     }
     public int inchesToTicks(double inches) {
         return (int) (inches * TICKS_PER_INCH);
@@ -52,16 +53,20 @@ public class MouseMain {
         driveInches(inches, power, "right");
     }
     public void left(int inches, double power) {driveInches(inches, power, "left");}
-    public void goToSlidePosition(int ticks, double power) {
+    /*public void goToSlidePosition(int ticks, double power) {
         slideL.setTargetPosition(ticks);
         slideR.setTargetPosition(ticks);
         slideL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideR.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         slideL.setPower(power);
         slideR.setPower(power);
-        while (slideL.isBusy() && slideR.isBusy());
+        while (slideL.isBusy() && slideR.isBusy()) ;
         slideR.setPower(0);
         slideL.setPower(0);
+    }*/
+    public void moveFourBar(double position) {
+        fourBarLeft.setPosition(position);
+        fourBarRight.setPosition(position);
     }
 
     public void goToTickPosition(int ticks, double power, String direction) {
@@ -89,7 +94,6 @@ public class MouseMain {
             backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
         }
-
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         backLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -118,5 +122,6 @@ public class MouseMain {
     public void closeClaw () {
         claw.setPosition(0);
     }
-    public void pUp () {}
+    public void pUp () {
+    }
 }
