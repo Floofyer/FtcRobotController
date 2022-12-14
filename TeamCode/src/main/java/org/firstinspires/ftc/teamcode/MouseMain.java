@@ -113,7 +113,7 @@ public class MouseMain {
     }
 
     public void openClaw () {
-        claw.setPosition(0.1);
+        claw.setPosition(1);
     }
     public void closeClaw () {
         claw.setPosition(0);
