@@ -11,8 +11,8 @@ public class MouseMain {
     DcMotorEx frontRight;
     DcMotorEx backLeft;
     DcMotorEx backRight;
-    /*DcMotorEx slideL;
-    DcMotorEx slideR;*/
+    DcMotorEx slideL;
+    DcMotorEx slideR;
     Servo claw;
     Servo fourBarLeft;
     Servo fourBarRight;
@@ -33,8 +33,8 @@ public class MouseMain {
         backLeft = this.hardwareMap.get(DcMotorEx.class, "backleft");
         backRight = this.hardwareMap.get(DcMotorEx.class, "backright");
         claw = this.hardwareMap.get(Servo.class, "claw");
-        /*slideL = this.hardwareMap.get(DcMotorEx.class, "slideL");
-        slideR = this.hardwareMap.get(DcMotorEx.class, "slideR");*/
+        slideL = this.hardwareMap.get(DcMotorEx.class, "slidel");
+        slideR = this.hardwareMap.get(DcMotorEx.class, "slider");
         fourBarLeft = this.hardwareMap.get(Servo.class, "fourbarleft");
         fourBarRight = this.hardwareMap.get(Servo.class, "fourbarright");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
@@ -44,16 +44,18 @@ public class MouseMain {
         return (int) (inches * TICKS_PER_INCH);
     }
     public void forward(int inches, double power) {
-        driveInches(inches, power, "forward");
+        driveInches(inches, power, Drive.FORWARD);
     }
     public void backward(int inches, double power) {
-        driveInches(inches, power, "backward");
+        driveInches(inches, power, Drive.BACKWARD);
     }
     public void right(int inches, double power) {
-        driveInches(inches, power, "right");
+        driveInches(inches, power, Drive.RIGHT);
     }
-    public void left(int inches, double power) {driveInches(inches, power, "left");}
-    /*public void goToSlidePosition(int ticks, double power) {
+    public void left(int inches, double power) {
+        driveInches(inches, power, Drive.LEFT);
+    }
+    public void goToSlidePosition(int ticks, double power) {
         slideL.setTargetPosition(ticks);
         slideR.setTargetPosition(ticks);
         slideL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -63,32 +65,32 @@ public class MouseMain {
         while (slideL.isBusy() && slideR.isBusy()) ;
         slideR.setPower(0);
         slideL.setPower(0);
-    }*/
+    }
     public void moveFourBar(double position) {
         fourBarLeft.setPosition(position);
         fourBarRight.setPosition(position);
     }
 
-    public void goToTickPosition(int ticks, double power, String direction) {
+    public void goToTickPosition(int ticks, double power, Drive direction) {
 
 //        frontLeft.setMo/de(DcMotor.RunMode.STOP_AND_RESET_ENCODER);/
 
-        if (direction.equals("forward")) {
+        if (direction == Drive.FORWARD) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
-        } else if (direction.equals("backward")) {
+        } else if (direction == Drive.BACKWARD) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
-        } else if (direction.equals("right")) {
+        } else if (direction == Drive.RIGHT) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
-        } else if (direction.equals("left")) {
+        } else if (direction == Drive.LEFT) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
@@ -112,7 +114,7 @@ public class MouseMain {
         frontRight.setPower(0);
 
     }
-    public void driveInches(int inches,double power, String direction) {
+    public void driveInches(int inches,double power, Drive direction) {
         goToTickPosition(inchesToTicks(inches), power, direction);
     }
 
@@ -123,5 +125,12 @@ public class MouseMain {
         claw.setPosition(0);
     }
     public void pUp () {
+    }
+
+    enum Drive {
+        FORWARD,
+        BACKWARD,
+        RIGHT,
+        LEFT,
     }
 }
