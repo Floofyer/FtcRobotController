@@ -10,8 +10,8 @@ public class BlueFar extends LinearOpMode {
         MouseMain mouse = new MouseMain(hardwareMap);
 
         waitForStart();
-        mouse.forward(6, 0.69);
-        mouse.right(12, 0.69);
-        mouse.forward(40, 0.69);
+        mouse.forward(5, 0.69);
+        mouse.right(25, 0.69);
+        mouse.forward(30, 0.69);
     }
 }

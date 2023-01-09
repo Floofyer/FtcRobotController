@@ -10,13 +10,8 @@ public class BlueClose extends LinearOpMode {
         MouseMain mouse = new MouseMain(hardwareMap);
 
         waitForStart();
-        while (opModeIsActive()) {
-            /*telemetry.addData("slide Left Ticks" , mouse.slideL.getCurrentPosition());
-            telemetry.addData("slide Right Ticks" , mouse.slideR.getCurrentPosition());
-            telemetry.update();*/
-        }
-        mouse.forward(6, 0.69);
-        mouse.right(12, 0.69);
+        mouse.forward(15, 0.69);
+        mouse.right(25, 0.69);
         mouse.forward(15, 0.69);
     }
 }

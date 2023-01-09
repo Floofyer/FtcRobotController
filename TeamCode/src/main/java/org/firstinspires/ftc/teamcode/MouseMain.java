@@ -11,11 +11,11 @@ public class MouseMain {
     DcMotorEx frontRight;
     DcMotorEx backLeft;
     DcMotorEx backRight;
-    DcMotorEx slideL;
-    DcMotorEx slideR;
     Servo claw;
     Servo fourBarLeft;
     Servo fourBarRight;
+    DcMotorEx slideL;
+    DcMotorEx slideR;
 
     HardwareMap hardwareMap;
 
@@ -126,6 +126,7 @@ public class MouseMain {
     }
     public void pUp () {
     }
+
 
     enum Drive {
         FORWARD,
