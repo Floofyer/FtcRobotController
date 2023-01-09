@@ -8,14 +8,14 @@
 //class Pipeline extends OpenCvPipeline
 //{
 //    Telemetry telemetry;
-//    Mat mat = new Mat();
+//    submat = new Mat();
 //    Mat submat;
-//    public Pipeline(Telemetry t) {tele}
+//
 //
 //    @Override
 //    public Mat processFrame(Mat input)
 //    {
-//        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
+//        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2YCrCb);
 //        submat = transform.submat(427,854,0,0);
 //
 //        if (lastresult == Color.GOLD) {
