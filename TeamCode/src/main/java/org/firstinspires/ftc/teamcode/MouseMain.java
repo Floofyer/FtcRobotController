@@ -122,11 +122,10 @@ public class MouseMain {
         claw.setPosition(1);
     }
     public void closeClaw () {
-        claw.setPosition(0);
+        claw.setPosition(-1);
     }
     public void pUp () {
     }
-
 
     enum Drive {
         FORWARD,
