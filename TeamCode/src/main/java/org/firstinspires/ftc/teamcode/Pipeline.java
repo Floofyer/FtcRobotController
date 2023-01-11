@@ -42,12 +42,6 @@ public class SkystoneDetector extends OpenCvPipeline
         submat = transform.submat(427, 854, 0, 0);
         Scalar lowHSV = new Scalar(23, 50, 70);
         Scalar highHSV = new Scalar(32, 255, 255);
-//
-//        Scalar lowHSV = new Scalar();
-//        Scalar highHSV = new Scalar();
-//
-//        Scalar lowHSV = new Scalar();
-//        Scalar highHSV = new Scalar();
 
         Core.inRange(mat, lowHSV, highHSV, mat);
         Mat left = mat.submat(Left_ROI);
@@ -69,19 +63,36 @@ public class SkystoneDetector extends OpenCvPipeline
 
         if (stoneLeft && stoneRight) {
             location = Location.NOT_FOUND;
+            telemetry.addData("Skystone Location", "Not Found");
             //not found
         }
         if (stoneLeft) {
             location = Location.RIGHT;
+            telemetry.addData("Skystone Location", "RIGHT");
         }
         // right
         else {
             location = Location.LEFT;
+            telemetry.addData("Skystone Location", "LEFT");
         }
+
+        telemetry.update();
+
+        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
+        Scalar colorStone = new Scalar(0, 255, 255);
+        Scalar colorSkystone = new Scalar(280, 50, 79);
+
+        Imgproc.rectangle(mat, Left_ROI, location == Location.LEFT? colorSkystone:colorStone);
         //left
-        return left;
+        Imgproc.rectangle(mat, Right_ROI, location == Location.RIGHT? colorSkystone:colorStone);
+        //right
+        return mat;
     }
+
+        public Location getLocation() {
+            return location;
 }
+
 
 //    https://www.geeksforgeeks.org/multiple-color-detection-in-real-time-using-python-opencv/
 //    - from Alex, may be useful if you can implement the logic.
