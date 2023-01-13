@@ -13,11 +13,11 @@ public class Skystone_AutoMode extends LinearOpMode {
     OpenCvCamera phonecam;
     @Override
     public void runOpMode() throws InterruptedException {
-    int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
-            "id", hardwareMap.appContext.getPackageName());
-            phonecam = OpenCvCameraFactory.getInstance()
-                    .createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-            SkystoneDetector detector = new SkystoneDetector(telemetry);
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
+                "id", hardwareMap.appContext.getPackageName());
+        phonecam = OpenCvCameraFactory.getInstance()
+                .createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
+        SkystoneDetector detector = new SkystoneDetector(telemetry);
         phonecam.setPipeline(detector);
         phonecam.openCameraDeviceAsync(
                 () -> phonecam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT)

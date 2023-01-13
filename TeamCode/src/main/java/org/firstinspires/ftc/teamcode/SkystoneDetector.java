@@ -1,7 +1,4 @@
 package org.firstinspires.ftc.teamcode;
-
-import android.location.Location;
-
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
@@ -11,30 +8,30 @@ import org.opencv.core.Scalar;
 import org.opencv.imgproc.Imgproc;
 import org.openftc.easyopencv.OpenCvPipeline;
 
-public class SkystoneDetector extends OpenCvPipeline
-{
+public class SkystoneDetector extends OpenCvPipeline {
     Telemetry telemetry;
     Mat mat = new Mat();
+
     public enum Location {
         LEFT,
         RIGHT,
         NOT_FOUND
     }
-    private Location location;
 
+    private Location location;
     Mat submat;
     Mat transform;
-
     static final Rect Left_ROI = new Rect(
             new Point(60, 35),
             new Point(120, 75));
     static final Rect Right_ROI = new Rect(
             new Point(140, 35),
             new Point(200, 75));
-
     static double PERCENT_COLOR_THRESHOLD = 0.4;
 
-    public SkystoneDetector(Telemetry t) { telemetry = t; }
+    public SkystoneDetector() {
+        telemetry = t;
+    }
 
     @Override
     public Mat processFrame(Mat input) {
@@ -42,8 +39,15 @@ public class SkystoneDetector extends OpenCvPipeline
         submat = transform.submat(427, 854, 0, 0);
         Scalar lowHSV = new Scalar(23, 50, 70);
         Scalar highHSV = new Scalar(32, 255, 255);
+//
+//        Scalar lowHSV = new Scalar();
+//        Scalar highHSV = new Scalar();
+//
+//        Scalar lowHSV = new Scalar();
+//        Scalar highHSV = new Scalar();
 
         Core.inRange(mat, lowHSV, highHSV, mat);
+
         Mat left = mat.submat(Left_ROI);
         Mat right = mat.submat(Right_ROI);
 
@@ -59,38 +63,42 @@ public class SkystoneDetector extends OpenCvPipeline
         telemetry.addData("Right percentage", Math.round(rightValue * 100) + "%");
 
         boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
-        boolean stoneRight = leftValue > PERCENT_COLOR_THRESHOLD;
+        boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
-        if (stoneLeft && stoneRight) {
-            location = Location.NOT_FOUND;
-            telemetry.addData("Skystone Location", "Not Found");
-            //not found
+        {
+            if (stoneLeft && stoneRight) {
+                location = Location.NOT_FOUND;
+                telemetry.addData("Skystone Location", "Not Found");
+                //not found
+            }
+            if (stoneLeft) {
+                location = Location.RIGHT;
+                telemetry.addData("Skystone Location", "RIGHT");
+            }
+            // right
+            else {
+                location = Location.LEFT;
+                telemetry.addData("Skystone Location", "LEFT");
+            }
+
+            telemetry.update();
+
+            Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
+            Scalar colorStone = new Scalar(0, 255, 255);
+            Scalar colorSkystone = new Scalar(280, 50, 79);
+
+            Imgproc.rectangle(mat, Left_ROI, location == Location.LEFT ? colorSkystone : colorStone);
+            //left
+            return left;
+            Imgproc.rectangle(mat, Right_ROI, location == Location.RIGHT ? colorSkystone : colorStone);
+            //right
+            return mat;
         }
-        if (stoneLeft) {
-            location = Location.RIGHT;
-            telemetry.addData("Skystone Location", "RIGHT");
-        }
-        // right
-        else {
-            location = Location.LEFT;
-            telemetry.addData("Skystone Location", "LEFT");
-        }
-
-        telemetry.update();
-
-        Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
-        Scalar colorStone = new Scalar(0, 255, 255);
-        Scalar colorSkystone = new Scalar(280, 50, 79);
-
-        Imgproc.rectangle(mat, Left_ROI, location == Location.LEFT? colorSkystone:colorStone);
-        //left
-        Imgproc.rectangle(mat, Right_ROI, location == Location.RIGHT? colorSkystone:colorStone);
-        //right
-        return mat;
-    }
 
         public Location getLocation() {
-            return location;
+            return Location;
+        }
+    }
 }
 
 
