@@ -21,7 +21,8 @@ public class SkystoneDetector extends OpenCvPipeline {
     private Location location;
     Mat submat;
     Mat transform;
-    static final Rect Left_ROI = new Rect(
+    static final Rect Left_ROI
+            = new Rect(
             new Point(60, 35),
             new Point(120, 75));
     static final Rect Right_ROI = new Rect(
@@ -29,13 +30,12 @@ public class SkystoneDetector extends OpenCvPipeline {
             new Point(200, 75));
     static double PERCENT_COLOR_THRESHOLD = 0.4;
 
-    public SkystoneDetector() {
-        telemetry = t;
-    }
+
 
     @Override
     public Mat processFrame(Mat input) {
         Imgproc.cvtColor(input, submat, Imgproc.COLOR_RGB2HSV);
+
         submat = transform.submat(427, 854, 0, 0);
         Scalar lowHSV = new Scalar(23, 50, 70);
         Scalar highHSV = new Scalar(32, 255, 255);
@@ -84,6 +84,7 @@ public class SkystoneDetector extends OpenCvPipeline {
             telemetry.update();
 
             Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
+
             Scalar colorStone = new Scalar(0, 255, 255);
             Scalar colorSkystone = new Scalar(280, 50, 79);
 
