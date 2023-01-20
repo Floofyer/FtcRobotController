@@ -19,40 +19,31 @@ public class SkystoneDetector extends OpenCvPipeline {
     }
 
     private Location location;
-    Mat submat;
-    Mat transform;
-    static final Rect Left_ROI
-            = new Rect(
+
+    static final Rect LEFT_ROI = new Rect(
             new Point(60, 35),
             new Point(120, 75));
-    static final Rect Right_ROI = new Rect(
+    static final Rect RIGHT_ROI = new Rect(
             new Point(140, 35),
             new Point(200, 75));
     static double PERCENT_COLOR_THRESHOLD = 0.4;
 
-
+    public SkystoneDetector(Telemetry t) { telemetry = t; }
 
     @Override
     public Mat processFrame(Mat input) {
-        Imgproc.cvtColor(input, submat, Imgproc.COLOR_RGB2HSV);
+        Imgproc.cvtColor(input, mat, Imgproc.COLOR_RGB2HSV);
 
-        submat = transform.submat(427, 854, 0, 0);
         Scalar lowHSV = new Scalar(23, 50, 70);
         Scalar highHSV = new Scalar(32, 255, 255);
-//
-//        Scalar lowHSV = new Scalar();
-//        Scalar highHSV = new Scalar();
-//
-//        Scalar lowHSV = new Scalar();
-//        Scalar highHSV = new Scalar();
 
         Core.inRange(mat, lowHSV, highHSV, mat);
 
-        Mat left = mat.submat(Left_ROI);
-        Mat right = mat.submat(Right_ROI);
+        Mat left = mat.submat(LEFT_ROI);
+        Mat right = mat.submat(RIGHT_ROI);
 
-        double leftValue = Core.sumElems(left).val[0] / Left_ROI.area() / 255;
-        double rightValue = Core.sumElems(right).val[0] / Right_ROI.area() / 255;
+        double leftValue = Core.sumElems(left).val[0] / LEFT_ROI.area() / 255;
+        double rightValue = Core.sumElems(right).val[0] / RIGHT_ROI.area() / 255;
 
         left.release();
         right.release();
@@ -65,42 +56,40 @@ public class SkystoneDetector extends OpenCvPipeline {
         boolean stoneLeft = leftValue > PERCENT_COLOR_THRESHOLD;
         boolean stoneRight = rightValue > PERCENT_COLOR_THRESHOLD;
 
-        {
+
             if (stoneLeft && stoneRight) {
                 location = Location.NOT_FOUND;
-                telemetry.addData("Skystone Location", "Not Found");
+                telemetry.addData("Skystone Location", "not found");
                 //not found
             }
             if (stoneLeft) {
                 location = Location.RIGHT;
-                telemetry.addData("Skystone Location", "RIGHT");
+                telemetry.addData("Skystone Location", "right");
             }
             // right
             else {
                 location = Location.LEFT;
-                telemetry.addData("Skystone Location", "LEFT");
+                telemetry.addData("Skystone Location", "left");
             }
-
             telemetry.update();
 
             Imgproc.cvtColor(mat, mat, Imgproc.COLOR_GRAY2RGB);
 
-            Scalar colorStone = new Scalar(0, 255, 255);
-            Scalar colorSkystone = new Scalar(280, 50, 79);
+            Scalar colorStone = new Scalar(255, 0, 0);
+            Scalar colorSkystone = new Scalar(0, 255, 0);
 
-            Imgproc.rectangle(mat, Left_ROI, location == Location.LEFT ? colorSkystone : colorStone);
+            Imgproc.rectangle(mat, LEFT_ROI, location == Location.LEFT? colorSkystone:colorStone);
             //left
-            return left;
-            Imgproc.rectangle(mat, Right_ROI, location == Location.RIGHT ? colorSkystone : colorStone);
+            Imgproc.rectangle(mat, RIGHT_ROI, location == Location.RIGHT ? colorSkystone : colorStone);
             //right
             return mat;
         }
 
         public Location getLocation() {
-            return Location;
+            return location;
         }
     }
-}
+
 
 
 //    https://www.geeksforgeeks.org/multiple-color-detection-in-real-time-using-python-opencv/

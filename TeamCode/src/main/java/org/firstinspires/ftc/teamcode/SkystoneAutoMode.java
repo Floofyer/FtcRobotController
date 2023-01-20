@@ -8,20 +8,33 @@ import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import org.openftc.easyopencv.OpenCvInternalCamera;
 
-@Autonomous(name= "Skystone Detector", group="Auto")
+@Autonomous(name="Skystone Detector", group="Auto")
 public class SkystoneAutoMode extends LinearOpMode {
     OpenCvCamera phoneCam;
     @Override
     public void runOpMode() throws InterruptedException {
         int cameraMonitorViewId = hardwareMap.appContext
                 .getResources().getIdentifier("cameraMonitorViewId",
-                "id", hardwareMap.appContext.getPackageName());
+                    "id", hardwareMap.appContext.getPackageName());
         phoneCam = OpenCvCameraFactory.getInstance()
                 .createInternalCamera(OpenCvInternalCamera.CameraDirection.BACK, cameraMonitorViewId);
-        SkystoneDetector detector = new SkystoneDetector();
+        SkystoneDetector detector = new SkystoneDetector(telemetry);
         phoneCam.setPipeline(detector);
         phoneCam.openCameraDeviceAsync(
-                () -> phonecam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT)
+                () -> phoneCam.startStreaming(320, 240, OpenCvCameraRotation.UPRIGHT)
         );
+
+        waitForStart();
+        switch (detector.getLocation()) {
+            case LEFT:
+            // ...
+            break;
+            case RIGHT:
+                // ...
+                break;
+            case NOT_FOUND:
+                // ...
+        }
+        phoneCam.stopStreaming();
     }
 }
