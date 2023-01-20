@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.auton.AprilTagAutonomousInitDetectionExample;
 import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
@@ -13,11 +14,12 @@ public class Test extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
         MouseMain mouse = new MouseMain(hardwareMap);
-        SkystoneDetector pipeline = new SkystoneDetector();
+        AprilTagAutonomousInitDetectionExample pipeline = new AprilTagAutonomousInitDetectionExample();
 
 
         WebcamName webcamName = hardwareMap.get(WebcamName.class, "cam");
-        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
+        int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId",
+                "id", hardwareMap.appContext.getPackageName());
         OpenCvCamera camera = OpenCvCameraFactory.getInstance().createWebcam(webcamName, cameraMonitorViewId);
 
         camera.openCameraDeviceAsync(new OpenCvCamera.AsyncCameraOpenListener()
@@ -31,8 +33,9 @@ public class Test extends LinearOpMode {
             public void onError(int errorCode)
             {
 
-            }            camera.openCameraDevice();
-        camera.setPipeline(SkystoneDetector);
+            }
+            camera.openCameraDevice();
+        camera.setPipeline(AprilTagAutonomousInitDetectionExample);
         });
         waitForStart();
         camera.setViewportRenderer(OpenCvCamera.ViewportRenderer.GPU_ACCELERATED);
