@@ -21,7 +21,7 @@ apply plugin: 'com.android.application'
 
 android {
 
-    compileSdkPreview '28(API 28: Android 9.0 (Pie))'
+    compileSdk 29
 
     signingConfigs {
         release {

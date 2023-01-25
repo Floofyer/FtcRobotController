@@ -27,7 +27,6 @@ public class MouseMain {
     // all of the hardware stored on this object/class
     public MouseMain(HardwareMap hardwareMap) {
         this.hardwareMap = hardwareMap;
-
         frontLeft = this.hardwareMap.get(DcMotorEx.class, "frontleft");
         frontRight = this.hardwareMap.get(DcMotorEx.class, "frontright");
         backLeft = this.hardwareMap.get(DcMotorEx.class, "backleft");
@@ -55,7 +54,7 @@ public class MouseMain {
     public void left(int inches, double power) {
         driveInches(inches, power, Drive.LEFT);
     }
-    public void goToSlidePosition(int ticks, double power) {
+    public void goToSlidePosition(int ticks, int power) {
         slideL.setTargetPosition(ticks);
         slideR.setTargetPosition(ticks);
         slideL.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -66,14 +65,13 @@ public class MouseMain {
         slideR.setPower(0);
         slideL.setPower(0);
     }
-    public void moveFourBar(double position) {
-        fourBarLeft.setPosition(position);
-        fourBarRight.setPosition(position);
+    public void moveFourBar(double power) {
+        fourBarLeft.setPosition(power);
+        fourBarRight.setPosition(power);
     }
-
     public void goToTickPosition(int ticks, double power, Drive direction) {
 
-//        frontLeft.setMo/de(DcMotor.RunMode.STOP_AND_RESET_ENCODER);/
+//        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if (direction == Drive.FORWARD) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
@@ -112,18 +110,15 @@ public class MouseMain {
         backLeft.setPower(0);
         backRight.setPower(0);
         frontRight.setPower(0);
-
     }
     public void driveInches(int inches,double power, Drive direction) {
         goToTickPosition(inchesToTicks(inches), power, direction);
     }
 
     public void openClaw () {
-        claw.setPosition(1);
+        claw.setPosition(0.7);
     }
-    public void closeClaw () {
-        claw.setPosition(-1);
-    }
+    public void closeClaw () {claw.setPosition(0.5);}
     public void pUp () {
     }
 

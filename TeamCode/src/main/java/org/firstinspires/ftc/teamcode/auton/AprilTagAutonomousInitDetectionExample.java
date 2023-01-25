@@ -94,20 +94,6 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
                     }
 
                 }
-                else
-                {
-                    telemetry.addLine("Don't see tag of interest :(");
-
-                    if(tagOfInterest == null)
-                    {
-                        telemetry.addLine("(The tag has never been seen)");
-                    }
-                    else
-                    {
-                        telemetry.addLine("\nBut we HAVE seen the tag before; last seen at:");
-                        tagToTelemetry(tagOfInterest);
-                    }
-                }
                 telemetry.update();
                 sleep(20);
             }
