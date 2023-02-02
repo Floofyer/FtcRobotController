@@ -186,7 +186,8 @@ import java.util.ArrayList;
             Imgproc.circle(buf, projectedPoints[0], thickness, white, -1);
         }
 
-        void draw3dCubeMarker(Mat buf, double length, double tagWidth, double tagHeight, int thickness, Mat rvec, Mat tvec, Mat cameraMatrix)
+        void draw3dCubeMarker(Mat buf, double length, double tagWidth, double tagHeight, int thickness,
+                              Mat rvec, Mat tvec, Mat cameraMatrix)
         {
             //axis = np.float32([[0,0,0], [0,3,0], [3,3,0], [3,0,0],
             //       [0,0,-3],[0,3,-3],[3,3,-3],[3,0,-3] ])
@@ -211,10 +212,10 @@ import java.util.ArrayList;
             }
 
             // Base
-            //Imgproc.line(buf, projectedPoints[0], projectedPoints[1], blue, thickness);
-            //Imgproc.line(buf, projectedPoints[1], projectedPoints[2], blue, thickness);
-            //Imgproc.line(buf, projectedPoints[2], projectedPoints[3], blue, thickness);
-            //Imgproc.line(buf, projectedPoints[3], projectedPoints[0], blue, thickness);
+            Imgproc.line(buf, projectedPoints[0], projectedPoints[1], blue, thickness);
+            Imgproc.line(buf, projectedPoints[1], projectedPoints[2], blue, thickness);
+            Imgproc.line(buf, projectedPoints[2], projectedPoints[3], blue, thickness);
+            Imgproc.line(buf, projectedPoints[3], projectedPoints[0], blue, thickness);
 
             // Top lines
             Imgproc.line(buf, projectedPoints[4], projectedPoints[5], green, thickness);

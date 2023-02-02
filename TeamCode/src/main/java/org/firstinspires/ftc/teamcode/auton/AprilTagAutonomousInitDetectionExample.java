@@ -8,6 +8,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
+//import java.util.Locale;
 
 @TeleOp
 public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
@@ -37,8 +38,11 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
         @Override
         public void runOpMode()
         {
-            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier("cameraMonitorViewId", "id", hardwareMap.appContext.getPackageName());
-            camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class, "Webcam 1"), cameraMonitorViewId);
+            int cameraMonitorViewId = hardwareMap.appContext.getResources().getIdentifier(
+                    "cameraMonitorViewId",
+                    "id", hardwareMap.appContext.getPackageName());
+            camera = OpenCvCameraFactory.getInstance().createWebcam(hardwareMap.get(WebcamName.class,
+                    "Webcam 1"), cameraMonitorViewId);
             aprilTagDetectionPipeline = new AprilTagDetectionPipeline(tagsize, fx, fy, cx, cy);
 
             camera.setPipeline(aprilTagDetectionPipeline);
@@ -47,7 +51,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
                 @Override
                 public void onOpened()
                 {
-                    camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
+                    camera.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
                 }
                 @Override
                 public void onError(int errorCode)
@@ -60,7 +64,8 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
              */
             while (!isStarted() && !isStopRequested())
             {
-                ArrayList<AprilTagDetection> currentDetections = aprilTagDetectionPipeline.getLatestDetections();
+                ArrayList<AprilTagDetection> currentDetections =
+                        aprilTagDetectionPipeline.getLatestDetections();
                 if(currentDetections.size() != 0)
                 {
                     boolean tagFound = false;
@@ -116,11 +121,12 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             }else{
                 //trajectory
             }
-//            while (opModeIsActive()) {sleep(20);}
+            while (opModeIsActive()) {sleep(20);}
         }
 
         void tagToTelemetry(AprilTagDetection detection)
         {
+//            Locale.getDefault();
             telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
             telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
             telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
@@ -128,5 +134,6 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             telemetry.addLine(String.format("Rotation Yaw: %.2f degrees", Math.toDegrees(detection.pose.yaw)));
             telemetry.addLine(String.format("Rotation Pitch: %.2f degrees", Math.toDegrees(detection.pose.pitch)));
             telemetry.addLine(String.format("Rotation Roll: %.2f degrees", Math.toDegrees(detection.pose.roll)));
+            telemetry.update();
         }
     }
