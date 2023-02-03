@@ -55,7 +55,7 @@ public class GoldMainTeleOP extends OpMode {
             mouse.slideR.setPower(0);
         }
         if (gamepad2.right_stick_y > 0) {
-            mouse.moveFourBar(-1);
+            mouse.moveFourBar(0);
         }
         else if (gamepad2.right_stick_y < 0) {
             mouse.moveFourBar(1);

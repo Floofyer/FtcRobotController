@@ -16,7 +16,7 @@ public class BlueFar extends LinearOpMode {
         mouse.forward(5, 0.69);
         mouse.right(25, 0.69);
         mouse.forward(30, 0.69);
-        mouse.goToSlidePosition(2, 0.69);
+        mouse.goToSlidePosition(20, 0.69);
         mouse.openClaw();
     }
 }

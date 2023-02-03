@@ -65,9 +65,9 @@ public class MouseMain {
         slideR.setPower(0);
         slideL.setPower(0);
     }
-    public void moveFourBar(double power) {
-        fourBarLeft.setPosition(power);
-        fourBarRight.setPosition(power);
+    public void moveFourBar(double position) {
+        fourBarLeft.setPosition(position);
+        fourBarRight.setPosition(position);
     }
     public void goToTickPosition(int ticks, double power, Drive direction) {
 
