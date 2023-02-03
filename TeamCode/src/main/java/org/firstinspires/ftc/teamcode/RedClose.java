@@ -10,8 +10,6 @@ public class RedClose extends LinearOpMode {
         MouseMain mouse = new MouseMain(hardwareMap);
 
         waitForStart();
-        mouse.forward(15, 0.69);
-        mouse.left(25, 0.69);
-        mouse.forward(15, 0.69);
+        mouse.goToSlidePosition(20, 0.69);
     }
 }

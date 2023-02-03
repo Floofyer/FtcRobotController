@@ -54,7 +54,7 @@ public class MouseMain {
     public void left(int inches, double power) {
         driveInches(inches, power, Drive.LEFT);
     }
-    public void goToSlidePosition(int ticks, int power) {
+    public void goToSlidePosition(int ticks, double power) {
         slideL.setTargetPosition(ticks);
         slideR.setTargetPosition(ticks);
         slideL.setMode(DcMotor.RunMode.RUN_TO_POSITION);

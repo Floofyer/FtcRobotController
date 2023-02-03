@@ -8,7 +8,7 @@ import org.openftc.easyopencv.OpenCvCamera;
 import org.openftc.easyopencv.OpenCvCameraFactory;
 import org.openftc.easyopencv.OpenCvCameraRotation;
 import java.util.ArrayList;
-//import java.util.Locale;
+import java.util.Locale;
 
 @TeleOp
 public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
@@ -51,11 +51,12 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
                 @Override
                 public void onOpened()
                 {
-                    camera.startStreaming(1280,720, OpenCvCameraRotation.UPRIGHT);
+                    camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
                 }
                 @Override
                 public void onError(int errorCode)
                 {
+
                 }
             });
             telemetry.setMsTransmissionInterval(50);
@@ -99,6 +100,10 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
                     }
 
                 }
+                else
+                {
+                    telemetry.addLine("Dont see tag of interest");
+                }
                 telemetry.update();
                 sleep(20);
             }
@@ -126,8 +131,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 
         void tagToTelemetry(AprilTagDetection detection)
         {
-//            Locale.getDefault();
-            telemetry.addLine(String.format("\nDetected tag ID=%d", detection.id));
+            telemetry.addLine(String.format("Detected tag ID=%d", detection.id));
             telemetry.addLine(String.format("Translation X: %.2f feet", detection.pose.x*FEET_PER_METER));
             telemetry.addLine(String.format("Translation Y: %.2f feet", detection.pose.y*FEET_PER_METER));
             telemetry.addLine(String.format("Translation Z: %.2f feet", detection.pose.z*FEET_PER_METER));
