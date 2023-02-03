@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -12,8 +13,8 @@ public class MouseMain {
     DcMotorEx backLeft;
     DcMotorEx backRight;
     Servo claw;
-    Servo fourBarLeft;
-    Servo fourBarRight;
+    CRServo fourBarLeft;
+    CRServo fourBarRight;
     DcMotorEx slideL;
     DcMotorEx slideR;
 
@@ -34,10 +35,10 @@ public class MouseMain {
         claw = this.hardwareMap.get(Servo.class, "claw");
         slideL = this.hardwareMap.get(DcMotorEx.class, "slidel");
         slideR = this.hardwareMap.get(DcMotorEx.class, "slider");
-        fourBarLeft = this.hardwareMap.get(Servo.class, "fourbarleft");
-        fourBarRight = this.hardwareMap.get(Servo.class, "fourbarright");
+        fourBarLeft = this.hardwareMap.get(CRServo.class, "fourbarleft");
+        fourBarRight = this.hardwareMap.get(CRServo.class, "fourbarright");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
-        fourBarRight.setDirection(Servo.Direction.REVERSE);
+        fourBarRight.setDirection(CRServo.Direction.REVERSE);
     }
     public int inchesToTicks(double inches) {
         return (int) (inches * TICKS_PER_INCH);
@@ -51,8 +52,7 @@ public class MouseMain {
     public void right(int inches, double power) {
         driveInches(inches, power, Drive.RIGHT);
     }
-    public void left(int inches, double power) {
-        driveInches(inches, power, Drive.LEFT);
+    public void left(int inches, double power) {driveInches(inches, power, Drive.LEFT);
     }
     public void goToSlidePosition(int ticks, double power) {
         slideL.setTargetPosition(ticks);
@@ -65,9 +65,9 @@ public class MouseMain {
         slideR.setPower(0);
         slideL.setPower(0);
     }
-    public void moveFourBar(double position) {
-        fourBarLeft.setPosition(position);
-        fourBarRight.setPosition(position);
+    public void moveFourBar(double power) {
+        fourBarLeft.setPower(power);
+        fourBarRight.setPower(power);
     }
     public void goToTickPosition(int ticks, double power, Drive direction) {
 
@@ -118,7 +118,8 @@ public class MouseMain {
     public void openClaw () {
         claw.setPosition(0.7);
     }
-    public void closeClaw () {claw.setPosition(0.5);}
+    public void closeClaw () {
+        claw.setPosition(0.5);}
     public void pUp () {
     }
 

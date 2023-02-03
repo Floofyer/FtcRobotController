@@ -55,10 +55,13 @@ public class GoldMainTeleOP extends OpMode {
             mouse.slideR.setPower(0);
         }
         if (gamepad2.right_stick_y > 0) {
-            mouse.moveFourBar(0);
+            mouse.moveFourBar(-1);
         }
         else if (gamepad2.right_stick_y < 0) {
             mouse.moveFourBar(1);
+        }
+        else {
+            mouse.moveFourBar(0);
         }
 
         frontLeftPower *= DrivePower;
