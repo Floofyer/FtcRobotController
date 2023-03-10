@@ -38,6 +38,8 @@ public class MouseMain {
         fourBarLeft = this.hardwareMap.get(CRServo.class, "fourbarleft");
         fourBarRight = this.hardwareMap.get(CRServo.class, "fourbarright");
         frontRight.setDirection(DcMotor.Direction.REVERSE);
+        frontLeft.setDirection(DcMotor.Direction.REVERSE);
+        backLeft.setDirection(DcMotor.Direction.REVERSE);
         fourBarRight.setDirection(CRServo.Direction.REVERSE);
     }
     public int inchesToTicks(double inches) {
@@ -74,24 +76,24 @@ public class MouseMain {
 //        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         if (direction == Drive.FORWARD) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
+            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
+            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
         } else if (direction == Drive.BACKWARD) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
-        } else if (direction == Drive.RIGHT) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
-        } else if (direction == Drive.LEFT) {
+        } else if (direction == Drive.RIGHT) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
+            frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
+            backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
+        } else if (direction == Drive.LEFT) {
+            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
+            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
+            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
         }
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
