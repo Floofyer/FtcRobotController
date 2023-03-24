@@ -22,12 +22,12 @@ public class GoldMainTeleOP extends OpMode {
     @Override
     public void loop() {
         double x = gamepad1.left_stick_x;
-        double y = -gamepad1.right_stick_x;
-        double r = gamepad1.left_stick_y;
+        double y = -gamepad1.left_stick_y;
+        double r = gamepad1.right_stick_x;
 
-        double frontLeftPower = (y + r - x);
+        double frontLeftPower = (y + r + x);
         double frontRightPower = (y - r - x);
-        double backLeftPower = (y + r + x);
+        double backLeftPower = (y + r - x);
         double backRightPower = (y - r + x);
 
         if (gamepad1.right_trigger == 1) {
