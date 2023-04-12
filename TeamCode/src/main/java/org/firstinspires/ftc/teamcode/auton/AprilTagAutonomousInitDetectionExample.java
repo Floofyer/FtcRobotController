@@ -62,7 +62,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             @Override
             public void onOpened()
             {
-                camera.startStreaming(176,144, OpenCvCameraRotation.UPSIDE_DOWN);
+                camera.startStreaming(176,144, OpenCvCameraRotation.UPRIGHT);
             }
             @Override
             public void onError(int errorCode)
@@ -134,15 +134,17 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 
 
         if (tagOfInterest == null || tagOfInterest.id == LEFT){
-            mouse.forward(27,0.5);
-
-            mouse.forward(10,0.5);
+            mouse.forward(18,0.5);
+            mouse.right(16, 0.5);
+            mouse.strafer(18,0.5);
         }else if (tagOfInterest.id == MIDDLE){
-            mouse.forward(15,0.5);
+            mouse.forward(18,0.5);
+            mouse.strafer(8, 0.5);
+            mouse.goToSlidePosition(25, -0.80);
         }else if (tagOfInterest.id == RIGHT){
-            mouse.forward(27,0.5);
-            mouse.right(10,0.5);
-            mouse.forward(27,0.5);
+            mouse.forward(18,0.5);
+            mouse.right(16,0.5);
+            mouse.strafel(18,0.5);
         }
 //        while (opMode.opModeIsActive()) {opMode.sleep(20);}
         }
