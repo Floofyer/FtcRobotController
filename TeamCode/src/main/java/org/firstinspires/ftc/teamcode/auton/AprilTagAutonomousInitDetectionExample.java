@@ -138,9 +138,10 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             mouse.right(16, 0.5);
             mouse.strafer(18,0.5);
         }else if (tagOfInterest.id == MIDDLE){
-            mouse.forward(18,0.5);
-            mouse.strafer(8, 0.5);
-            mouse.goToSlidePosition(25, -0.80);
+            mouse.forward(18, 0.5);
+            sleep(1000);
+            mouse.right(5, 0.5);
+            sleep(1000);
         }else if (tagOfInterest.id == RIGHT){
             mouse.forward(18,0.5);
             mouse.right(16,0.5);
