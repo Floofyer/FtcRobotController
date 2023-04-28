@@ -43,8 +43,8 @@ public class GoldMainTeleOP extends OpMode {
             mouse.claw.setPosition(0.7);//open
         }
         if (gamepad2.left_stick_y > 0) {//down
-            mouse.slideL.setPower(0.25);
-            mouse.slideR.setPower(-0.25);
+            mouse.slideL.setPower(0.35);
+            mouse.slideR.setPower(-0.35);
         }
         else if (gamepad2.left_stick_y < 0){//up
             mouse.slideL.setPower(-0.80);
