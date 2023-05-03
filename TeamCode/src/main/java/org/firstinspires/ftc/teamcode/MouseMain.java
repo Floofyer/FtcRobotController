@@ -76,6 +76,7 @@ public class MouseMain {
 
 //        frontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+
         if (direction == Drive.FORWARD) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
@@ -99,7 +100,7 @@ public class MouseMain {
         } else if (direction == Drive.STRAFEL) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
+            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
         } else if (direction == Drive.STRAFER) {
             frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);

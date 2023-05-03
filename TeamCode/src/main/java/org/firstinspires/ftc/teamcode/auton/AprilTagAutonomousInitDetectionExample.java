@@ -25,7 +25,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
     OpenCvCamera camera;
     AprilTagDetectionPipeline aprilTagDetectionPipeline;
 
-    static final double FEET_PER_METER = 3.58084;
+    static final double FEET_PER_METER = 3.28084;
 
     // Lens intrinsics
     // UNITS = PIXEL
@@ -62,7 +62,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             @Override
             public void onOpened()
             {
-                camera.startStreaming(176,144, OpenCvCameraRotation.UPRIGHT);
+                camera.startStreaming(800,448, OpenCvCameraRotation.UPRIGHT);
             }
             @Override
             public void onError(int errorCode)
@@ -71,7 +71,7 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
             }
         });
 
-        FtcDashboard.getInstance().startCameraStream(camera, 60);
+        FtcDashboard.getInstance().startCameraStream(camera, 240);
         telemetry.setMsTransmissionInterval(50);
         /*
          The INIT-loop REPLACES waitForStart!
@@ -134,18 +134,17 @@ public class AprilTagAutonomousInitDetectionExample extends LinearOpMode
 
 
         if (tagOfInterest == null || tagOfInterest.id == LEFT){
-            mouse.forward(18,0.5);
-            mouse.right(16, 0.5);
-            mouse.strafer(18,0.5);
+            mouse.strafel(24,0.5);
+            mouse.right(10,0.5);
+            mouse.forward(22,0.5);
         }else if (tagOfInterest.id == MIDDLE){
-            mouse.forward(18, 0.5);
-            sleep(1000);
-            mouse.right(5, 0.5);
-            sleep(1000);
+            mouse.forward(22, 0.5);
+            mouse.right(4,0.5);
+            mouse.strafer(6, 0.5);
         }else if (tagOfInterest.id == RIGHT){
-            mouse.forward(18,0.5);
-            mouse.right(16,0.5);
-            mouse.strafel(18,0.5);
+            mouse.strafer(24,0.5);
+            mouse.right(3,0.5);
+            mouse.forward(22,0.5);
         }
 //        while (opMode.opModeIsActive()) {opMode.sleep(20);}
         }

@@ -34,7 +34,7 @@ public class GoldMainTeleOP extends OpMode {
             DrivePower = Math.min(DrivePower + 0.05, 1);
         }
         if (gamepad1.left_trigger == 1) {
-            DrivePower = Math.max(DrivePower - 0.05, 0.1);
+            DrivePower = Math.max(DrivePower - 0.05, 0.5);
         }
         if (gamepad2.x) {
             mouse.claw.setPosition(1);//close
