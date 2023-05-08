@@ -54,9 +54,6 @@ public class MouseMain {
     public void right(int inches, double power) {
         driveInches(inches, power, Drive.RIGHT);
     }
-    public void left(int inches, double power) {driveInches(inches, power, Drive.LEFT);}
-    public void strafel(int inches, double power) {driveInches(inches, power, Drive.STRAFEL);}
-    public void strafer(int inches, double power) {driveInches(inches, power, Drive.STRAFER);}
     public void goToSlidePosition(int ticks, double power) {
         slideL.setTargetPosition(ticks);
         slideR.setTargetPosition(ticks);
@@ -97,16 +94,7 @@ public class MouseMain {
             frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
             backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
             backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
-        } else if (direction == Drive.STRAFEL) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()-ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()+ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()+ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()-ticks);
-        } else if (direction == Drive.STRAFER) {
-            frontLeft.setTargetPosition(frontLeft.getCurrentPosition()+ticks);
-            frontRight.setTargetPosition(frontRight.getCurrentPosition()-ticks);
-            backLeft.setTargetPosition(backLeft.getCurrentPosition()-ticks);
-            backRight.setTargetPosition(backRight.getCurrentPosition()+ticks);
+
         }
         frontLeft.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         frontRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -142,7 +130,5 @@ public class MouseMain {
         BACKWARD,
         RIGHT,
         LEFT,
-        STRAFEL,
-        STRAFER,
     }
 }
